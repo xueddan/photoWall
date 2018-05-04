@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{
+            width: 80px;
+            height: 80px;
+            float: left;
+            perspective: 800px;
+        }
+        button{
+            width: 150px;
+            color:#fff;
+            padding:10px 20px;
+            background-color:rgb(0,100,0) ;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 4px;
+        }
+        #imgWrap{
+            width: 800px;
+            height: 480px;
+            margin:40px auto;
+        }
+        #btn{
+            width: 100px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="imgWrap">
+    <img src="img/1.jpeg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/2.jpg" alt="">
+    <img src="img/3.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/10.jpg" alt="">
+    <img src="img/2.jpg" alt="">
+    <img src="img/1.jpeg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/10.jpg" alt="">
+    <img src="img/1.jpeg" alt="">
+    <img src="img/2.jpg" alt="">
+    <img src="img/3.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/10.jpg" alt="">
+    <img src="img/1.jpeg" alt="">
+    <img src="img/2.jpg" alt="">
+    <img src="img/3.jpg" alt="">
+    <img src="img/4.jpeg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/5.jpg" alt="">
+    <img src="img/6.png" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/10.jpg" alt="">
+    <img src="img/7.jpg" alt="">
+    <img src="img/8.jpg" alt="">
+    <img src="img/9.jpg" alt="">
+    <img src="img/10.jpg" alt="">
+    <img src="img/1.jpeg" alt="">
+    <img src="img/2.jpg" alt="">
+    <img src="img/3.jpg" alt="">
+</div>
+
+<div id="btn">
+    <button id="btn1">点击查看效果</button>
+</div>
+<script type="text/javascript">
+    window.onload=function () {
+        var btn=document.getElementsByTagName('button');
+//        var btn=document.getElementById()
+        var imgs=document.querySelectorAll('img');
+        var on=true;//判断用户是否可以再次点击
+        btn[0].onclick=function () {
+            if(!on){
+                return;
+            }
+            on=false;
+            var endNum=0;
+            var allEnd=0;//用来判断所有的图片是否全部运动完
+            for(var i=0;i<imgs.length;i++){
+                (function (i) {
+                    setTimeout(function () {
+                        montion(imgs[i],'10ms',function () {
+                            this.style.transform='scale(0)';
+//                            this.style.opacity='0'
+                        },function () {
+                            montion(this,'1s',function () {
+                                this.style.transform='scale(1)';
+//                                this.style.opacity=0;
+                            },function () {
+                                endNum++;
+                                if(endNum==imgs.length){
+                                    toBig();
+                                }
+                            });
+                            
+                        })
+                    },Math.random()*800)
+                })(i);
+            }
+            function toBig() {
+                for(var i=0;i<imgs.length;i++){
+                    imgs[i].style.transition="";
+                    imgs[i].style.transform='rotateY(0deg) translateZ(-'+Math.random()*500+'px)';
+                    (function (i) {
+                        setTimeout(function () {
+                            montion(imgs[i],'2s',function () {
+                                this.style.opacity=1;
+                                this.style.transform='rotateY(-360deg) translateZ(0)';
+                            },function () {
+                                allEnd++;
+                                if(allEnd==imgs.length){
+                                    on=true;
+                                }
+                            })
+                        },Math.random()*1000)
+                    })(i);
+                }
+
+            }
+        };
+
+
+        function montion(obj,time,doFn,callback) {
+            obj.style.transition=time;
+            doFn.call(obj);//调用函数，将this指向obj
+            var called=false;
+            obj.addEventListener('transitionend',function () {
+                if(!called){
+                    callback&&callback.call(obj);
+                    called=true;
+                }
+                callback.call(obj);
+            },false);
+        }
+
+
+    };
+
+
+
+</script>
+</body>
+
+</html>
